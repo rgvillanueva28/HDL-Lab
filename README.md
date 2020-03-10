@@ -1,5 +1,5 @@
 # HDL Laboratory
-## Group07
+## Group05
 <br>
 
 Gian Karlo Madrid
