@@ -1,0 +1,174 @@
+primitive DemuxD0(D, Y, S0, S1, S2);
+	input Y, S0, S1, S2;
+	output D;
+	table
+//  Y  S0 S1 S2  D
+	0 b b b : 0;
+	1 0 0 0 : 1;
+	1 0 0 1 : 0;
+	1 0 1 0 : 0;
+	1 0 1 1 : 0;
+	1 1 0 0 : 0;
+	1 1 0 1 : 0;
+	1 1 1 0 : 0;
+	1 1 1 1 : 0;
+	endtable
+endprimitive
+
+primitive DemuxD1(D, Y, S0, S1, S2);
+	input Y, S0, S1, S2;
+	output D;
+	table
+//  Y  S0 S1 S2  D
+	0 b b b : 0;
+	1 0 0 0 : 0;
+	1 0 0 1 : 1;
+	1 0 1 0 : 0;
+	1 0 1 1 : 0;
+	1 1 0 0 : 0;
+	1 1 0 1 : 0;
+	1 1 1 0 : 0;
+	1 1 1 1 : 0;
+	endtable
+endprimitive
+
+primitive DemuxD2(D, Y, S0, S1, S2);
+	input Y, S0, S1, S2;
+	output D;
+	table
+//  Y  S0 S1 S2  D
+	0 b b b : 0;
+	1 0 0 0 : 0;
+	1 0 0 1 : 0;
+	1 0 1 0 : 1;
+	1 0 1 1 : 0;
+	1 1 0 0 : 0;
+	1 1 0 1 : 0;
+	1 1 1 0 : 0;
+	1 1 1 1 : 0;
+	endtable
+endprimitive
+
+primitive DemuxD3(D, Y, S0, S1, S2);
+	input Y, S0, S1, S2;
+	output D;
+	table
+//  Y  S0 S1 S2  D
+	0 b b b : 0;
+	1 0 0 0 : 0;
+	1 0 0 1 : 0;
+	1 0 1 0 : 0;
+	1 0 1 1 : 1;
+	1 1 0 0 : 0;
+	1 1 0 1 : 0;
+	1 1 1 0 : 0;
+	1 1 1 1 : 0;
+	endtable
+endprimitive
+
+primitive DemuxD4(D, Y, S0, S1, S2);
+	input Y, S0, S1, S2;
+	output D;
+	table
+//  Y S0 S1 S2 D
+	0 b b b : 0;
+	1 0 0 0 : 0;
+	1 0 0 1 : 0;
+	1 0 1 0 : 0;
+	1 0 1 1 : 0;
+	1 1 0 0 : 1;
+	1 1 0 1 : 0;
+	1 1 1 0 : 0;
+	1 1 1 1 : 0;
+	endtable
+endprimitive
+
+primitive DemuxD5(D, Y, S0, S1, S2);
+	input Y, S0, S1, S2;
+	output D;
+	table
+//  Y  S0 S1 S2  D
+	0 b b b : 0;
+	1 0 0 0 : 0;
+	1 0 0 1 : 0;
+	1 0 1 0 : 0;
+	1 0 1 1 : 0;
+	1 1 0 0 : 0;
+	1 1 0 1 : 1;
+	1 1 1 0 : 0;
+	1 1 1 1 : 0;
+	endtable
+endprimitive
+
+primitive DemuxD6(D, Y, S0, S1, S2);
+	input Y, S0, S1, S2;
+	output D;
+	table
+//  Y  S0 S1 S2  D
+	0 b b b : 0;
+	1 0 0 0 : 0;
+	1 0 0 1 : 0;
+	1 0 1 0 : 0;
+	1 0 1 1 : 0;
+	1 1 0 0 : 0;
+	1 1 0 1 : 0;
+	1 1 1 0 : 1;
+	1 1 1 1 : 0;
+	endtable
+endprimitive
+
+primitive DemuxD7(D, Y, S0, S1, S2);
+	input Y, S0, S1, S2;
+	output D;
+	table
+//  Y  S0 S1 S2  D
+	0 b b b : 0;
+	1 0 0 0 : 0;
+	1 0 0 1 : 0;
+	1 0 1 0 : 0;
+	1 0 1 1 : 0;
+	1 1 0 0 : 0;
+	1 1 0 1 : 0;
+	1 1 1 0 : 0;
+	1 1 1 1 : 1;
+	endtable
+endprimitive
+
+module exercise4_1;
+	reg Y, A, B, C;
+	wire [7:0]X;
+	
+	DemuxD0 (X[0],Y,A,B,C);
+	DemuxD1 (X[1],Y,A,B,C);
+	DemuxD2 (X[2],Y,A,B,C);
+	DemuxD3 (X[3],Y,A,B,C);
+	DemuxD4 (X[4],Y,A,B,C);
+	DemuxD5 (X[5],Y,A,B,C);
+	DemuxD6 (X[6],Y,A,B,C);
+	DemuxD7 (X[7],Y,A,B,C);
+	
+	initial begin
+		#2 Y=1'b0; A=1'b0; B=1'b0; C=1'b0;
+		$display("");
+		$display("         8x1 Demultiplexer Truth Table");
+		$display("");
+		$display(" Y   S1  S2  S3  D0  D1  D2  D3  D4  D5  D6  D7 ");
+		$monitor(" %b   %b   %b   %b   %b   %b   %b   %b   %b   %b   %b   %b ", Y, A, B, C, X[0], X[1], X[2], X[3], X[4], X[5], X[6], X[7]);
+		#2 Y=1'b0; A=1'b0; B=1'b0; C=1'b1;
+		#2 Y=1'b0; A=1'b0; B=1'b1; C=1'b0;
+		#2 Y=1'b0; A=1'b0; B=1'b1; C=1'b1;
+		#2 Y=1'b0; A=1'b1; B=1'b0; C=1'b0;
+		#2 Y=1'b0; A=1'b1; B=1'b0; C=1'b1;
+		#2 Y=1'b0; A=1'b1; B=1'b1; C=1'b0;
+		#2 Y=1'b0; A=1'b1; B=1'b1; C=1'b1;
+		#2 Y=1'b1; A=1'b0; B=1'b0; C=1'b0;
+		#2 Y=1'b1; A=1'b0; B=1'b0; C=1'b1;
+		#2 Y=1'b1; A=1'b0; B=1'b1; C=1'b0;
+		#2 Y=1'b1; A=1'b0; B=1'b1; C=1'b1;
+		#2 Y=1'b1; A=1'b1; B=1'b0; C=1'b0;
+		#2 Y=1'b1; A=1'b1; B=1'b0; C=1'b1;
+		#2 Y=1'b1; A=1'b1; B=1'b1; C=1'b0;
+		#2 Y=1'b1; A=1'b1; B=1'b1; C=1'b1;
+		#200 $finish;
+	end
+endmodule
