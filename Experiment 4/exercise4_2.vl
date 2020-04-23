@@ -1,0 +1,73 @@
+primitive Diff(D, A, B, Bin);
+	input A, B, Bin;
+	output D;
+	table
+//  A B Bin D
+	0 0 0 : 0;
+	0 0 1 : 1;
+	0 1 0 : 1;
+	0 1 1 : 0;
+	1 0 0 : 1;
+	1 0 1 : 0;
+	1 1 0 : 0;
+	1 1 1 : 1;
+	endtable
+endprimitive
+
+primitive Bout (Bout, A, B, Bin);
+	input A, B, Bin;
+	output Bout;
+	table
+//	A B Bin Bout
+	0 0 0 : 0;
+	0 0 1 : 1;
+	0 1 0 : 1;
+	0 1 1 : 1;
+	1 0 0 : 0;
+	1 0 1 : 0;
+	1 1 0 : 0;
+	1 1 1 : 1;
+	endtable
+endprimitive
+
+module exercise4_2;
+	reg A, B, Bin;
+	wire [1:0] D;
+	
+	Diff (D[0], A, B, Bin);
+	Bout (D[1], A, B, Bin);
+	
+	initial begin
+		#2 A=1'b0; B=1'b0; Bin=1'b0;
+		$display("");
+		$display("         Full Binary Subtrator");
+		$display("");
+		$display("          A  B  Bin  Diff  Bout  ");
+		$monitor("          %b  %b  %b    %b     %b", A, B, Bin, D[0], D[1]);
+		#2 A=1'b0; B=1'b0; Bin=1'b1;
+		#2 A=1'b0; B=1'b1; Bin=1'b0;
+		#2 A=1'b0; B=1'b1; Bin=1'b1;
+		#2 A=1'b1; B=1'b0; Bin=1'b0;
+		#2 A=1'b1; B=1'b0; Bin=1'b1;
+		#2 A=1'b1; B=1'b1; Bin=1'b0;
+		#2 A=1'b1; B=1'b1; Bin=1'b1;
+		#2 $finish;
+	end
+endmodule
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
