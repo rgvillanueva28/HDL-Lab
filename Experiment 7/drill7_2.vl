@@ -1,0 +1,19 @@
+module drill7_2;
+	function automatic [31:0] calFactorial;
+	input [7:0] number;
+	begin
+		if (number == 1) begin
+			calFactorial=1;
+		end
+		else begin
+			calFactorial=number*calFactorial(number-1);
+		end
+	end
+	endfunction
+	
+	initial begin
+		$display("Factorial of 1:%d", calFactorial(1));
+		$display("Factorial of 2:%d", calFactorial(2));
+		$display("Factorial of 16:%d", calFactorial(16));
+	end
+endmodule
