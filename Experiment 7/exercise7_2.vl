@@ -1,0 +1,32 @@
+module exercise7_2();
+function automatic [31:0] product;
+	input [7:0] num1;
+	input [7:0] num2;
+ 
+	begin
+  
+		if(num2 > 0)
+		begin 
+			product = num1 + product(num1, num2-1);
+			end
+		else
+		begin
+			product = 0;
+		end  
+	end
+endfunction
+ 
+	initial begin
+		$display("    ____________________________________________________ ");
+		$display("   |                                                    |");
+		$display("   |       Multiplication using Recursive Addition      |");
+		$display("   |____________________________________________________|");
+		$display("   |                  |              |                  |");
+		$display("   |   Multiplicand   |  Multiplier  |     Product      |");
+		$display("   |        5         |      4       |%d", product(5,4), "        |");
+		$display("   |        7         |      2       |%d", product(7,2), "        |");
+		$display("   |        8         |      3       |%d", product(8,3), "        | ");
+		$display("   |__________________|______________|__________________|");
+		$display("");
+	end
+endmodule 

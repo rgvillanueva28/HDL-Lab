@@ -1,0 +1,76 @@
+module operation(inX, X, n, disp, Q);
+	input [3:0] inX;
+	output reg [3:0] Q;
+	input X;
+	input [3:0] n;
+	reg [3:0] ntmp;
+	reg tmpN;
+	integer fileHandle;
+	reg [255:0] mem [0:255];
+	output reg [255:0] disp;
+
+	initial Q=0;
+
+	always @(X, n, inX) begin
+		ntmp = n;
+		if(X==1) begin
+			Q = inX;
+			fileHandle = $fopen("exercise7_1.txt");
+			while(ntmp!=0) begin
+				Q = Q + 1;
+				ntmp = ntmp-1;
+			end
+			disp="Do Increment and then Save  |";
+			$fwrite(fileHandle, "%b", Q);
+			$fclose(fileHandle);
+		end
+		else begin
+			mem[0] = 0;
+			disp="Do Read, Rotate, and Update |";
+			$readmemb("exercise7_1.txt", mem, mem[0], mem[3]);
+			Q = mem[0];
+			repeat(ntmp) begin
+				tmpN = Q[3];
+				Q = Q << 1;
+				Q[0] = tmpN;
+			end
+			fileHandle = $fopen("exercise7_1.txt");
+			$fwrite(fileHandle, "%b", Q);
+			$fclose(fileHandle);
+		end
+	end
+endmodule
+
+module exercise7_1;
+	reg [3:0] inX;
+	reg X;
+	reg [3:0] n;
+	wire [3:0] Q;
+	wire [255:0] disp;
+
+	operation tb(inX, X, n, disp, Q);
+
+	initial begin
+	X=1; n=1; inX=2;
+	$display("       _________________________________________________________________________ ");
+	$display("      |                                                                         |");
+	$display("      |                           4-Bit Circulation                             |");
+	$display("      |                                                                         |");
+	$display("      |       Operations:                                                       |");
+	$display("      |       If X=0, Do Read from txt file then rotate to left it n times      |");
+	$display("      |       If X=1, Do Increment data it n times and save to txt file         |");
+	$display("      |       Legend: D - Decimal, B - Binary                                   |");
+	$display("      |_________________________________________________________________________|");
+	$display("      |   |   |                  |                |                             |");
+	$display("      | X | n |  inX(D)   inX(B) | Out(D) Out(B)  |             Msg             |");
+	$monitor("      | %b |%d |   %d       %b  |  %d     %b   | %0s", X, n, inX, inX, Q, Q, disp);
+	#2 X=0; n=3;
+	#2 X=1; n=5; inX=4;
+	#2 X=0; n=3;
+	#2 X=1; n=5; inX=6;
+	#2 X=0; n=1;
+	#2 $display("      |___|___|__________________|________________|_____________________________|");
+	#2 $finish;
+	
+	end
+endmodule
